@@ -1,0 +1,23 @@
+# Environment & secrets
+.env
+*.env
+credentials*
+*.key
+*.pem
+
+# Node
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Claude Code
+.claude/
+
+# Synced data (pulled fresh from remote each session)
+strategies/
+backtests/
+system-prompt.txt
+code-sync-prompt.md
+backtest-prompt.txt
