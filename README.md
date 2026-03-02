@@ -1,4 +1,4 @@
-# Portara Desktop
+# Claude Code connector for Portara trading VPS
 
 **AI-managed crypto trading infrastructure.** This repo is the local control plane for a live trading system running on a remote VPS. Claude Code connects to the box, reads strategies, deploys updates, and monitors processes — all through a structured onboarding guide.
 
