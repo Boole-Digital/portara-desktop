@@ -8,5 +8,15 @@ param(
     [Parameter(Mandatory)][string]$Command
 )
 
-# Auto-accept host key on first connect
-echo y | plink -ssh -pw $Password root@$IP $Command 2>$null
+# Strip one level of backslash escaping from password (parity with ssh-cmd.sh)
+$Password = $Password -replace '\\(.)', '$1'
+
+# Write command to temp file — avoids PowerShell argument-quoting issues with plink
+$tmpFile = [System.IO.Path]::GetTempFileName()
+try {
+    [System.IO.File]::WriteAllText($tmpFile, $Command)
+    # Auto-accept host key on first connect; -m reads remote command from file
+    echo y | plink -ssh -pw $Password -m $tmpFile root@$IP 2>$null
+} finally {
+    Remove-Item $tmpFile -ErrorAction SilentlyContinue
+}

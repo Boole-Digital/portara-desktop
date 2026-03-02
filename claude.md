@@ -31,13 +31,13 @@ This repo has wrapper scripts that handle SSH + password auth + output cleanup. 
 
 **Windows (PowerShell):**
 ```powershell
-.\ssh-cmd.ps1 <IP> <PASSWORD> "<REMOTE_COMMAND>"
+.\ssh-cmd.ps1 <IP> '<PASSWORD>' '<REMOTE_COMMAND>'
 ```
 
 - Output is clean (junk lines stripped automatically)
-- On macOS/Linux: wrap the password in **single quotes** to prevent shell `$` interpolation
+- On **both** platforms: wrap the password in **single quotes** to prevent `$` interpolation
 - Special characters in passwords (`!`, `&`, `$`, etc.) are handled automatically by the script — **do not** manually escape them
-- The remote command goes in **double quotes**
+- On macOS/Linux the remote command goes in **double quotes**; on Windows use **single quotes** (prevents PowerShell from expanding `$HOME`, `$NVM_DIR`, etc.)
 - Windows requires [plink.exe](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) in PATH
 
 ### Why `source ~/.bashrc` doesn't work
