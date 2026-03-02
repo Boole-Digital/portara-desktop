@@ -10,7 +10,7 @@
 
 Managing a remote trading system involves SSH, PM2 process management, strategy deployment, backtesting, and log analysis. Instead of doing all of that manually, this repo turns Claude Code into an operator that can:
 
-- Connect to your trading box and run commands
+- Connect to your portara trading box (VPS) and run commands
 - Pull, edit, and deploy strategy files
 - Start/stop/restart live trading processes
 - Run backtests and review logs
