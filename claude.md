@@ -273,7 +273,7 @@ State files track positions, open orders, and idempotency markers. **The exchang
 
 1. [ ] Ask the user for the **server IP** and **SSH password**
 2. [ ] Test connectivity: `./ssh-cmd.sh <IP> '<PASS>' "echo connected"`
-3. [ ] Sync `system-prompt.txt` and `code-sync-prompt.md` locally (if missing)
+3. [ ] Sync `system-prompt.txt` locally (if missing or stale)
 4. [ ] Sync remote strategies into local `strategies/` folder (if missing or stale)
 5. [ ] Run `pm2 list` to see what's running
 6. [ ] Read local `system-prompt.txt` if you need to write or modify strategies
