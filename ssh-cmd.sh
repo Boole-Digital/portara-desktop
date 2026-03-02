@@ -4,7 +4,7 @@
 # Outputs only the command's stdout (strips spawn/password junk).
 
 IP="$1"
-PASS="$2"
+PASS=$(printf '%s' "$2" | sed 's/\\\(.\)/\1/g')
 CMD="$3"
 
 if [ -z "$IP" ] || [ -z "$PASS" ] || [ -z "$CMD" ]; then

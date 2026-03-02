@@ -16,8 +16,10 @@ Thumbs.db
 .claude/
 
 # Synced data (pulled fresh from remote each session)
-strategies/
-backtests/
+strategies/*
+!strategies/.gitkeep
+backtests/*
+!backtests/.gitkeep
 system-prompt.txt
 code-sync-prompt.md
 backtest-prompt.txt

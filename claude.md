@@ -36,6 +36,7 @@ This repo has wrapper scripts that handle SSH + password auth + output cleanup. 
 
 - Output is clean (junk lines stripped automatically)
 - On macOS/Linux: wrap the password in **single quotes** to prevent shell `$` interpolation
+- Special characters in passwords (`!`, `&`, `$`, etc.) are handled automatically by the script — **do not** manually escape them
 - The remote command goes in **double quotes**
 - Windows requires [plink.exe](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) in PATH
 
