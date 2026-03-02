@@ -65,7 +65,6 @@ portaraDesktop/
 ├── ssh-cmd.sh             ← SSH wrapper (macOS/Linux)
 ├── ssh-cmd.ps1            ← SSH wrapper (Windows/PowerShell)
 ├── system-prompt.txt      ← Trading API docs (synced from remote)
-├── code-sync-prompt.md    ← Code-sync tool docs (synced from remote)
 ├── strategies/            ← Local copies of strategy files
 └── backtests/             ← Backtest output data
 ```
