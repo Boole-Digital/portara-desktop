@@ -72,9 +72,12 @@ portaraDesktop/
 ├── claude.md                  # This file (onboarding guide)
 ├── ssh-cmd.sh                 # SSH wrapper — macOS/Linux (do not modify)
 ├── ssh-cmd.ps1                # SSH wrapper — Windows/PowerShell (do not modify)
-├── system-prompt.txt          # ⭐ Synced from remote — trading API docs
-├── code-sync-prompt.md        # Synced from remote — sender.js tools docs
-└── strategies/                # ⭐ Local copies of all strategy files
+├── system-prompt.txt                       # ⭐ Synced from remote — core trading API docs
+├── system-prompt-prediction-markets.txt    # ⭐ Synced from remote — prediction market docs
+├── backtest-prompt.md                      # ⭐ Synced from remote — backtest engine prompt
+├── interface-prompt.txt                    # Synced from remote — Bloomberg-style UI prompt
+├── code-sync-prompt.md                     # Synced from remote — sender.js tools docs
+└── strategies/                             # ⭐ Local copies of all strategy files
     ├── MTF-oscellator.js
     ├── funding_farm_hl_ext.js
     └── ...
@@ -82,12 +85,26 @@ portaraDesktop/
 
 ### On first connect: sync reference docs (if missing locally)
 
-Check if `system-prompt.txt` already exists locally. If not, pull it from the remote:
+Check if the prompt files already exist locally. If not, pull them from the remote:
 
 ```bash
+# Core trading agent docs
 ./ssh-cmd.sh <IP> '<PASSWORD>' "cat /root/.openclaw/workspace/portara-agent/v3/system-prompt.txt"
 # → Save output to: <this-repo>/system-prompt.txt
 
+# Prediction markets (Polymarket, Limitless, Opinion, Kalshi)
+./ssh-cmd.sh <IP> '<PASSWORD>' "cat /root/.openclaw/workspace/portara-agent/v3/system-prompt-prediction-markets.txt"
+# → Save output to: <this-repo>/system-prompt-prediction-markets.txt
+
+# Backtest engine (self-contained HTML backtest generator)
+./ssh-cmd.sh <IP> '<PASSWORD>' "cat /root/.openclaw/workspace/portara-agent/backtest/backtest-prompt.md"
+# → Save output to: <this-repo>/backtest-prompt.md
+
+# Bloomberg-style trading interface generation
+./ssh-cmd.sh <IP> '<PASSWORD>' "cat /root/.openclaw/workspace/portara-agent/v3/interface-prompt.txt"
+# → Save output to: <this-repo>/interface-prompt.txt
+
+# Code-sync sender tools
 ./ssh-cmd.sh <IP> '<PASSWORD>' "cat /root/.openclaw/workspace/portara-agent/code-sync/system-prompt.md"
 # → Save output to: <this-repo>/code-sync-prompt.md
 ```
@@ -133,6 +150,18 @@ Read the local `system-prompt.txt` (synced in Step 2). If you need the latest ve
 
 > **Tip:** The system-prompt.txt is the most important file — it documents all available trading functions, exchange adapters, strategy templates, and safety rules. Read it early.
 
+### Which prompt file to read
+
+The remote box has multiple specialized system prompts. Read the one(s) relevant to what the user is asking:
+
+| Prompt file | When to read |
+|-------------|-------------|
+| `system-prompt.txt` | **Default.** Writing, editing, or deploying any trading strategy. Core API docs, exchange list, safety rules. |
+| `system-prompt-prediction-markets.txt` | User wants to trade prediction markets (Polymarket, Limitless, Opinion, Kalshi). Covers event/market search, outcome tokens, order placement, and position management for binary/multi-outcome markets. |
+| `backtest-prompt.md` | User wants to backtest a strategy. Describes how to generate a self-contained HTML backtest dashboard from a strategy file — data sourcing, signal generation, trade simulation, and interactive visualization. |
+| `interface-prompt.txt` | User wants a trading dashboard/UI. Describes generating Bloomberg-style mobile trading interfaces served from the box. |
+| `code-sync-prompt.md` | Using sender.js tools (backtest linking, log fetching, status push). |
+
 ---
 
 ## Step 4: Understand the Remote Directory Layout
@@ -141,6 +170,8 @@ All paths are on the remote box under `/root/.openclaw/workspace/portara-agent`.
 
 ```
 portara-agent/
+├── backtest/                      # Backtest engine
+│   └── backtest-prompt.md         # ⭐ Backtest HTML generator prompt
 ├── code-sync/                     # Agent tooling (backtest, logs, status)
 │   ├── sender.js                  # Main tool script
 │   ├── sender-daemon.js           # Auto status push daemon
@@ -151,6 +182,8 @@ portara-agent/
 ├── v3/                            # Trading engine v3
 │   ├── index.js                   # Main entry point
 │   ├── system-prompt.txt          # ⭐ Full trading agent docs
+│   ├── system-prompt-prediction-markets.txt  # ⭐ Prediction market docs
+│   ├── interface-prompt.txt       # Bloomberg-style UI generation prompt
 │   ├── .env                       # Exchange API keys & config
 │   ├── libs/                      # Trading libraries
 │   │   ├── trading-interface.js   # Core trading interface
@@ -273,8 +306,8 @@ State files track positions, open orders, and idempotency markers. **The exchang
 
 1. [ ] Ask the user for the **server IP** and **SSH password**
 2. [ ] Test connectivity: `./ssh-cmd.sh <IP> '<PASS>' "echo connected"`
-3. [ ] Sync `system-prompt.txt` locally (if missing or stale)
+3. [ ] Sync prompt files locally (if missing or stale): `system-prompt.txt`, `system-prompt-prediction-markets.txt`, `backtest-prompt.md`, `interface-prompt.txt`
 4. [ ] Sync remote strategies into local `strategies/` folder (if missing or stale)
 5. [ ] Run `pm2 list` to see what's running
-6. [ ] Read local `system-prompt.txt` if you need to write or modify strategies
+6. [ ] Read the relevant prompt file(s) for the task at hand (see "Which prompt file to read" table)
 7. [ ] Ask the user what they need help with
