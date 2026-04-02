@@ -50,7 +50,8 @@ You (Claude Code) ──ssh-cmd.sh──▶ Remote VPS (trading box)
 
 - [Claude Code](https://claude.ai/claude-code) installed
 - A running trading VPS with the Portara agent deployed
-- Your server IP address and SSH password
+- Your server IP address and SSH password.
+- Your password was given to you upon deployment and the IP address of your agent is on the top left of your agent detail page (after its been deployed and assigned).
 
 ### Usage
 
