@@ -1,6 +1,10 @@
 # Claude Code connector for Portara trading VPS
 
-**AI-managed crypto trading infrastructure.** This repo is the local control plane for a live trading system running on a remote VPS. Claude Code connects to the box, reads strategies, deploys updates, and monitors processes — all through a structured onboarding guide.
+[Built for Portara.xyz and OpenClaw](https://portara.xyz)
+
+**Portara is AI-managed crypto trading desk infrastructure.** 
+
+This repo is the local control plane for your remote OpenClaw system running on a VPS. Claude Code connects to the box via ssh, reads strategies, deploys updates, and monitors processes — all through a structured onboarding guide.
 
 <img width="1536" height="1024" alt="unnamed" src="https://github.com/user-attachments/assets/ab89ab97-cade-4a0e-b30b-1cba7095d188" />
 
